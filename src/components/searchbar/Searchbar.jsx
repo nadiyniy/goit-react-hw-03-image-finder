@@ -20,5 +20,8 @@ const StyledWrapperDiv = styled.div`
     width: 250px;
     padding: 5px 20px;
     border-radius: 10px;
+    border: 1px solid black;
+    &:hover {
+    }
   }
 `;
