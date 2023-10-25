@@ -2,12 +2,19 @@ import { ImageGalleryItem } from 'components/imageGalleryItem/ImageGalleryItem';
 import React from 'react';
 import styled from 'styled-components';
 
-export const ImageGallery = ({ images }) => {
+export const ImageGallery = ({ images, handleToggleModal }) => {
   return (
     <StyledWrapperDiv>
       <StyledListUl>
         {images.map((image, idx) => {
-          return <ImageGalleryItem key={idx} avatar={image.webformatURL} />;
+          return (
+            <ImageGalleryItem
+              handleToggleModal={() => handleToggleModal(image)}
+              tags={image.tags}
+              key={idx}
+              avatar={image.webformatURL}
+            />
+          );
         })}
       </StyledListUl>
     </StyledWrapperDiv>

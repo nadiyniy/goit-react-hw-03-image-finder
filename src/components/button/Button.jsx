@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Button = ({ onClick }) => {
-  return <StyledButton onClick={onClick}>Load more</StyledButton>;
+export const Button = ({ onClick, isLoading }) => {
+  return (
+    <StyledButton onClick={onClick}>
+      {!isLoading ? 'Load more' : 'Loading...'}
+    </StyledButton>
+  );
 };
 
 const StyledButton = styled.button`

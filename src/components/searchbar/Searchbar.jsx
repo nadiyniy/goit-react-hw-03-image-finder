@@ -8,10 +8,10 @@ export class Searchbar extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.setQuery(this.state.searchValue);
+    this.setState({ searchValue: '' });
   };
   handleOnChange = e => {
     this.setState({ searchValue: e.target.value });
-    console.log(e.target.value);
   };
 
   render() {
@@ -44,7 +44,12 @@ const StyledHeader = styled.div`
   padding: 10px 20px;
   align-items: center;
   border-bottom: 1px solid black;
-
+  position: sticky;
+  top: 0;
+  left: 0;
+  & button {
+    cursor: pointer;
+  }
   & form {
     display: flex;
     gap: 10px;
