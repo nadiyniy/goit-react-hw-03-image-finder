@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const ImageGalleryItem = ({ avatar }) => {
   return (
     <StyledItemLi>
-      <img src={avatar} alt=" Ce 1" />
+      <img src={avatar} alt="tyt" width="200" height="200" />
     </StyledItemLi>
   );
 };
@@ -15,8 +15,11 @@ const StyledItemLi = styled.li`
   border-radius: 10px;
   overflow: hidden;
   & img {
+    height: 100%;
     width: 100%;
-    height: auto;
-    display: block;
+    object-fit: cover;
+  }
+  @media screen and (max-width: 768px) {
+    width: calc((100% - 1 * 5px) / 2);
   }
 `;

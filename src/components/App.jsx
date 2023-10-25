@@ -4,38 +4,79 @@ import { ImageGallery } from './imageGallery/ImageGallery';
 import { Loader } from './loader/Loader';
 import { Modal } from './modal/Modal';
 import { Searchbar } from './searchbar/Searchbar';
-const url =
-  'https://img.freepik.com/free-photo/colorful-heart-air-balloon-shape-collection-concept-isolated-color-background-beautiful-heart-ball-event_90220-1047.jpg';
-
-// const API_KEY = '40246120-635cf6b51d07f62c2e22f19b9';
-
-// const urlPhoto =
-//   'https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fphoto&psig=AOvVaw1GBjvDVsSlf7O2yNtteeyb&ust=1698244806800000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCMDEpIX1joIDFQAAAAAdAAAAABAE';
-
-const array = [url, url, url, url, url, url, url, url, url, url];
+import { fetchImage } from '../services/api';
 
 export class App extends React.Component {
   state = {
+    images: [],
     isOpen: false,
+    isLoading: false,
+    selectedImage: null,
+    total: null,
+    page: 1,
+    per_page: 12,
+    q: '',
+  };
+
+  // async componentDidMount() {
+  //   this.setState({ isLoading: true });
+  //   try {
+  //     const res = await fetchImage();
+  //     console.log(res);
+  //     this.setState({ images: res.hits });
+  //     this.setState({ products: res });
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     this.setState({ isLoading: false });
+  //   }
+  // }
+  async componentDidUpdate(prevProps, prevState) {
+    if (this.state.page !== prevState.page || this.state.q !== prevState.q) {
+      this.setState({ isLoading: true });
+
+      try {
+        const res = await fetchImage({
+          page: this.state.page,
+          q: this.state.q,
+        });
+        this.setState(prev => ({
+          images: [...prev.images, ...res.hits],
+        }));
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.setState({ isLoading: false });
+      }
+    }
+  }
+
+  handleLoadMore = () => {
+    this.setState(prev => ({ page: prev.page + 1 }));
+  };
+
+  handleSetQuery = q => {
+    this.setState({ q, images: [], page: 1 });
   };
 
   render() {
+    const { images, isLoading, isOpen, selectedImage } = this.state;
+
     return (
       <div
         style={{
-          height: '100vh',
           display: 'flex',
           flexDirection: 'column',
-          // justifyContent: 'center',
           alignItems: 'center',
           fontSize: 40,
           color: '#010101',
         }}
       >
-        <Searchbar />
-        <ImageGallery avatar={array} />
+        <Searchbar setQuery={this.handleSetQuery} />
+        <ImageGallery images={images} />
         <Loader />
-        <Button />
+        {images.length ? <Button onClick={this.handleLoadMore} /> : null}
+
         <Modal />
       </div>
     );

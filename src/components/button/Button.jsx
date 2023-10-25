@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const Button = () => {
-  return <StyledButton>Button</StyledButton>;
+export const Button = ({ onClick }) => {
+  return <StyledButton onClick={onClick}>Load more</StyledButton>;
 };
 
 const StyledButton = styled.button`
@@ -13,6 +13,7 @@ const StyledButton = styled.button`
   background-color: lightseagreen;
   font-size: 20px;
   transition: all 0.1s ease-in;
+  margin-bottom: 20px;
   cursor: pointer;
   &:hover {
     box-shadow: 0 0 0px 0px black;
