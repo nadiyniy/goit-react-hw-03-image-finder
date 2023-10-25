@@ -108,7 +108,7 @@ export class App extends React.Component {
         {totalHits > images.length ? (
           <Button isLoading={isLoading} onClick={this.handleLoadMore} />
         ) : null}
-        {this.state.isOpen ? (
+        {isOpen ? (
           <Modal
             closeModal={this.handleToggleModal}
             selectedImage={selectedImage}

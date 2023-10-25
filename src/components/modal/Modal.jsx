@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export class Modal extends Component {
   render() {
-    const { children, closeModal, selectedImage } = this.props;
+    const { closeModal, selectedImage } = this.props;
 
     return (
       <StyledWrapper>
