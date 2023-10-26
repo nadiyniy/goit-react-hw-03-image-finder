@@ -43,6 +43,8 @@ export class Modal extends Component {
             <StyledImage
               src={selectedImage.largeImageURL}
               alt={selectedImage.tags}
+              width={770}
+              height={700}
             />
           </div>
         </StyledContent>
@@ -62,11 +64,15 @@ const StyledWrapper = styled.div`
 `;
 const StyledContent = styled.div`
   width: 800px;
-  height: 600px;
+  height: auto;
   background-color: white;
   border: 1px solid black;
   border-radius: 10px;
   padding: 10px;
+  margin: 0 10px;
+  & div {
+    height: 500px;
+  }
   & button {
     width: 30px;
     height: 30px;
@@ -90,10 +96,16 @@ const StyledContent = styled.div`
     align-items: center;
     border-radius: 10px;
     overflow: hidden;
+    @media screen and (max-width: 768px) {
+      height: auto;
+    }
   }
 `;
 const StyledImage = styled.img`
   height: 100%;
   width: 100%;
   object-fit: cover;
+  @media screen and (max-width: 768px) {
+    height: auto;
+  }
 `;
