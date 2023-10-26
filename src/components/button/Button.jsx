@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import propTypes from 'prop-types';
 
 export const Button = ({ onClick, isLoading }) => {
   return (
@@ -7,6 +8,10 @@ export const Button = ({ onClick, isLoading }) => {
       {!isLoading ? 'Load more' : 'Loading...'}
     </StyledButton>
   );
+};
+Button.propTypes = {
+  onClick: propTypes.func.isRequired,
+  isLoading: propTypes.bool.isRequired,
 };
 
 const StyledButton = styled.button`

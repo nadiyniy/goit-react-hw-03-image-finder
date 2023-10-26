@@ -1,6 +1,7 @@
 import { ImageGalleryItem } from 'components/imageGalleryItem/ImageGalleryItem';
 import React from 'react';
 import styled from 'styled-components';
+import propTypes from 'prop-types';
 
 export const ImageGallery = ({ images, handleToggleModal }) => {
   return (
@@ -19,6 +20,11 @@ export const ImageGallery = ({ images, handleToggleModal }) => {
       </StyledListUl>
     </StyledWrapperDiv>
   );
+};
+
+ImageGallery.propTypes = {
+  images: propTypes.array.isRequired,
+  handleToggleModal: propTypes.func.isRequired,
 };
 
 const StyledWrapperDiv = styled.div`

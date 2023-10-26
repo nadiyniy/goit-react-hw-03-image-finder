@@ -5,6 +5,8 @@ import { Modal } from './modal/Modal';
 import { Searchbar } from './searchbar/Searchbar';
 import { fetchImage } from '../services/api';
 import { Watch } from 'react-loader-spinner';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export class App extends React.Component {
   state = {
@@ -17,6 +19,7 @@ export class App extends React.Component {
     per_page: 12,
     q: '',
     totalHits: '',
+    error: '',
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -34,9 +37,10 @@ export class App extends React.Component {
           images: [...prev.images, ...res.hits],
           totalHits: res.totalHits,
         }));
-        console.log(res);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        this.setState({ error: err.message }, () => {
+          toast.error(this.state.error);
+        });
       } finally {
         this.setState({ isLoading: false });
       }
@@ -73,7 +77,9 @@ export class App extends React.Component {
       >
         <Searchbar setQuery={this.handleSetQuery} />
         {!images.length && <p>start you search...</p>}
-        {images.length ? <p>You find {totalHits}</p> : null}
+
+        {images.length ? <p>You find {totalHits} images</p> : null}
+
         {isLoading && !images.length ? (
           <div
             style={{
@@ -114,6 +120,7 @@ export class App extends React.Component {
             selectedImage={selectedImage}
           />
         ) : null}
+        <ToastContainer />
       </div>
     );
   }

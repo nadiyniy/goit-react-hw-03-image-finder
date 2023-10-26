@@ -1,12 +1,40 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import propTypes from 'prop-types';
 
 export class Modal extends Component {
+  static propTypes = {
+    closeModal: propTypes.func.isRequired,
+    selectedImage: propTypes.object.isRequired,
+  };
+
+  handleKeyDown = e => {
+    if (e.key === 'Escape') {
+      this.props.closeModal();
+    }
+  };
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyDown);
+    document.body.style.overflow = 'hidden';
+  }
+
+  componentWillUnmount() {
+    document.body.style.overflow = 'visible';
+    document.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleClickOutside = ({ target, currentTarget }) => {
+    if (target === currentTarget) {
+      this.props.closeModal();
+    }
+  };
+
   render() {
     const { closeModal, selectedImage } = this.props;
 
     return (
-      <StyledWrapper>
+      <StyledWrapper onClick={this.handleClickOutside}>
         <StyledContent>
           <button onClick={closeModal}>X</button>
 
