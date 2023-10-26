@@ -5,6 +5,7 @@ import propTypes from 'prop-types'; // ES6
 export class Searchbar extends React.Component {
   static propTypes = {
     setQuery: propTypes.func.isRequired,
+    query: propTypes.string.isRequired,
   };
 
   state = {
