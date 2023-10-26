@@ -12,8 +12,10 @@ export class Searchbar extends React.Component {
   };
   handleSubmit = e => {
     e.preventDefault();
+    if (!this.state.searchValue) {
+      return;
+    }
     this.props.setQuery(this.state.searchValue);
-    this.setState({ searchValue: '' });
   };
   handleOnChange = e => {
     this.setState({ searchValue: e.target.value });
@@ -23,7 +25,11 @@ export class Searchbar extends React.Component {
     return (
       <StyledHeader className="searchbar">
         <form onSubmit={this.handleSubmit} className="form">
-          <button type="submit" className="button">
+          <button
+            disabled={this.props.query.trim() === this.state.searchValue.trim()}
+            type="submit"
+            className="button"
+          >
             <span className="button-label">Search</span>
           </button>
 
@@ -33,7 +39,8 @@ export class Searchbar extends React.Component {
             type="search"
             autoComplete="off"
             autoFocus
-            placeholder="Search images and photos"
+            value={this.state.searchValue}
+            placeholder="Enter any word for search"
           />
         </form>
       </StyledHeader>

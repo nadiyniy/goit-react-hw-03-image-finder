@@ -75,10 +75,14 @@ export class App extends React.Component {
           color: '#010101',
         }}
       >
-        <Searchbar setQuery={this.handleSetQuery} />
+        <Searchbar query={this.state.q} setQuery={this.handleSetQuery} />
         {!images.length && <p>start you search...</p>}
 
-        {images.length ? <p>You find {totalHits} images</p> : null}
+        {images.length ? (
+          <p>
+            You find {totalHits} images {this.state.q}
+          </p>
+        ) : null}
 
         {isLoading && !images.length ? (
           <div
